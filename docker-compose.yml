@@ -1,9 +1,12 @@
 version: '3.9'
+volumes:
+  influxdb_data:
 services:
   influxdb:
     image: influxdb:1.8-alpine
-    container_name: influxdb
-    restart: always
+    deploy:
+      restart_policy:
+        condition: any
     environment:
       - INFLUXDB_DB=influx
       - INFLUXDB_ADMIN_USER=admin
@@ -12,5 +15,3 @@ services:
       - '8086:8086'
     volumes:
       - influxdb_data:/var/lib/influxdb
-
-
